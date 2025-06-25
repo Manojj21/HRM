@@ -1,0 +1,20 @@
+version: '3.8'
+
+# Development override for docker-compose.yml
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  hrm-app:
+    build:
+      target: base  # Use base stage for development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+    command: npm run dev
+    ports:
+      - "5000:5000"
+      - "3000:3000"  # Vite dev server port
+    stdin_open: true
+    tty: true
